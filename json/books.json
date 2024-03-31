@@ -1,0 +1,52 @@
+{
+    "books":[
+        {
+            "isbn": 5531,
+            "title":"Robinson Crusoe",
+            "image": "img/book.png",
+            "author": "Daniel Defo",
+            "genre": "fiction",
+            "rating": 5
+        },
+        {
+            "isbn": 2216,
+            "title":"Hamlet",
+            "image": "img/book.png",
+            "author": "William Shakespeare",
+            "genre": "tragedy",
+            "rating": 4.3
+        },
+        {
+            "isbn": 1142,
+            "title":"War and Peace",
+            "image": "img/book.png",
+            "author": "Leo Tolstoy",
+            "genre": "idk",
+            "rating": 4.9
+        },
+        {
+            "isbn": 2223,
+            "title":"Don Kihot",
+            "image": "img/book.png",
+            "author": "Servantes",
+            "genre": "novel",
+            "rating": 3.9
+        },
+        {
+            "isbn": 1234,
+            "title":"Romeo & Juliet",
+            "image": "img/book.png",
+            "author": "William Shakespeare",
+            "genre": "tragedy",
+            "rating": 1.2
+        },
+        {
+            "isbn": 1232,
+            "title":"Riki",
+            "image": "img/book.png",
+            "author": "Rijad",
+            "genre": "tragedy",
+            "rating": 1.2
+        }
+    ]
+}

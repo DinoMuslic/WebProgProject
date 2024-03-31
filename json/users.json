@@ -1,0 +1,54 @@
+{
+    "users":[
+        {
+          "id":1,
+          "name":"John Doe",
+          "image": "img/user.png",
+          "email":"johndoe@gmail.com",
+          "courses": ["calculus", "programing", "computer networks"],
+          "phone": "+386 542 321",
+          "faculty": "fenms",
+          "department": "it"
+        },
+        {
+          "id":2,
+          "name":"Jane Smith",
+          "image": "img/user2.png",
+          "email":"janesmith@gmail.com",
+          "courses": ["biology", "introduction to programing"],
+          "phone": "+386 654 345",
+          "faculty": "fenms",
+          "department": "genetic engineering"
+        },
+        {
+          "id":3,
+          "name":"Bob Johnson",
+          "image": "img/user3.png",
+          "email":"bobjohnson@gmail.com",
+          "courses":["web programing", "calculus", "mobile programing"],
+          "phone": "+386 324 234",
+          "faculty": "fenms",
+          "department": "electrical engineering"
+        },
+        {
+          "id":4,
+          "name":"Jimmy Hendrix",
+          "image": "img/user2.png",
+          "email":"hendrix@gmail.com",
+          "courses":["programing II", "calculus I", "web programing"],
+          "phone": "+386 226 123",
+          "faculty": "fenms",
+          "department": "it"
+        },
+        {
+          "id":5,
+          "name":"Dino Muslic",
+          "image": "img/user2.png",
+          "email":"dino@gmail.com",
+          "courses":["programing II", "calculus I", "web programing"],
+          "phone": "+386 295 165",
+          "faculty": "fenms",
+          "department": "it"
+        }
+    ]
+}

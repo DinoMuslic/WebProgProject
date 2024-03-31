@@ -1,0 +1,60 @@
+{
+    "courses":[
+        {
+            "id":1,
+            "title": "Web Design & Developement",
+            "professor": "Dino Keco",
+            "department": "IT",
+            "students": 30,
+            "image": "img/course-1.jpg"
+        },
+        {
+            "id":2,
+            "title": "Database Design & Implementation",
+            "professor": "Becir Isakovic",
+            "department": "IT",
+            "students": 90,
+            "image": "img/course-2.jpg"
+        },
+        {
+            "id":3,
+            "title": "Calculus II",
+            "professor": "Edin Lidjan",
+            "department": "IT",
+            "students": 450,
+            "image": "img/course-3.jpg"
+        },
+        {
+            "id":4,
+            "title": "System Analysis & Design",
+            "professor": "Amela Vates",
+            "department": "IT",
+            "students": 125,
+            "image": "img/course-2.jpg"
+        },
+        {
+            "id":5,
+            "title": "Mobile Programing",
+            "professor": "Zerina Masetic",
+            "department": "IT",
+            "students": 199,
+            "image": "img/course-3.jpg"
+        },
+        {
+            "id":6,
+            "title": "Web Programing",
+            "professor": "Dzelila",
+            "department": "IT",
+            "students": 225,
+            "image": "img/course-1.jpg"
+        },
+        {
+            "id":7,
+            "title": "Advanced Mobile Programing",
+            "professor": "Zerina Masetic",
+            "department": "IT",
+            "students": 75,
+            "image": "img/course-2.jpg"
+        }
+    ]
+}
