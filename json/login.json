@@ -1,0 +1,16 @@
+{
+    "users":[
+        {
+            "name": "Dino Muslic",
+            "password": "password123"
+        },
+        {
+            "name": "John Doe",
+            "password": "password111"
+        },
+        {
+            "name": "Joe Wheeler",
+            "password": "password222"
+        }
+    ]
+}

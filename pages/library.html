@@ -1,0 +1,47 @@
+<style>
+    @media (max-width: 400px) {
+            .searchbar {
+                width: 500px !important;
+            }
+        }
+   </style>
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Library</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    
+    <!--Search bar start--> 
+    <div class="d-flex justify-content-end mr-5">
+        <div class="input-group rounded w-25 justify-content-end searchbar">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <span class="input-group-text border-0" id="search-addon">
+              <i class="fas fa-search"></i>
+            </span>
+          </div>
+    </div>
+    <!--Search bar end-->
+    
+    
+    <!-- Books start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Books</h6>
+                <br><br>
+            </div>
+            <div id="book-container" class="row g-4 justify-content-center">
+               
+            </div>
+        </div>
+    </div>
+    <!-- Books end -->
+
+    <script src="js/fetchBooks.js"></script>

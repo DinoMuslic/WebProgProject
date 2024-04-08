@@ -1,0 +1,100 @@
+{
+    "staff":[
+        {
+            "id":1,
+            "name": "Dino Keco",
+            "image": "img/user.png",
+            "email":"keco@gmail.com",
+            "department": "IT",
+            "courses": ["discrete maths", "machine learning"]
+        },
+        {
+            "id":2,
+            "name": "Amela Vatres",
+            "image": "img/user3.png",
+            "email":"vatres@gmail.com",
+            "department": "IT",
+            "courses": ["web programing", "programing II"]
+        },
+        {
+            "id":3,
+            "name": "Becir Isakovic",
+            "image": "img/user3.png",
+            "email":"isakovic@gmail.com",
+            "department": "IT",
+            "courses": ["web programing", "oop", "web engineering"]
+        },
+        {
+            "id":4,
+            "name": "Zerina Masetic",
+            "image": "img/user.png",
+            "email":"masetic@gmail.com",
+            "department": "IT",
+            "courses": ["web programing", "oop", "web engineering"]
+        },
+        {
+            "id":3,
+            "name": "Becir Isakovic",
+            "image": "img/user3.png",
+            "email":"isakovic@gmail.com",
+            "department": "IT",
+            "courses": ["web programing", "oop", "web engineering"]
+        },
+        {
+            "id":3,
+            "name": "Becir Isakovic",
+            "image": "img/user3.png",
+            "email":"isakovic@gmail.com",
+            "department": "IT",
+            "courses": ["web programing", "oop", "web engineering"]
+        },
+        {
+            "id":3,
+            "name": "Becir Isakovic",
+            "image": "img/user3.png",
+            "email":"isakovic@gmail.com",
+            "department": "IT",
+            "courses": ["web programing", "oop", "web engineering"]
+        },
+        {
+            "id":2,
+            "name": "Amela Vatres",
+            "image": "img/user3.png",
+            "email":"vatres@gmail.com",
+            "department": "IT",
+            "courses": ["web programing", "programing II"]
+        },
+        {
+            "id":2,
+            "name": "Amela Vatres",
+            "image": "img/user3.png",
+            "email":"vatres@gmail.com",
+            "department": "IT",
+            "courses": ["web programing", "programing II"]
+        },
+        {
+            "id":1,
+            "name": "Dino Keco",
+            "image": "img/user.png",
+            "email":"keco@gmail.com",
+            "department": "IT",
+            "courses": ["discrete maths", "machine learning"]
+        },
+        {
+            "id":1,
+            "name": "Dino Keco",
+            "image": "img/user.png",
+            "email":"keco@gmail.com",
+            "department": "IT",
+            "courses": ["discrete maths", "machine learning"]
+        },
+        {
+            "id":1,
+            "name": "Dino Keco",
+            "image": "img/user.png",
+            "email":"keco@gmail.com",
+            "department": "IT",
+            "courses": ["discrete maths", "machine learning"]
+        }
+    ]
+}
