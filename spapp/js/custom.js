@@ -94,6 +94,20 @@ $(document).ready(function() {
   });
 
   app.route({
+    view : "add_tables",
+    load : "add_tables.html",
+    onCreate: function() {  },
+    onReady: function() {  }
+  });
+
+  app.route({
+    view : "get_tables",
+    load : "get_tables.html",
+    onCreate: function() {  },
+    onReady: function() {  }
+  });
+
+  app.route({
     view : "404",
     load : "404.html",
     onCreate: function() {  },

@@ -1,0 +1,169 @@
+<br><br><br>
+
+<!-- <div class="row align-items-center">
+  <form id="course-form" method="post" class="w-50 mx-auto d-block" style="background-color: rgb(240, 240, 240); padding: 50px; border-radius: 25px;">
+    <div class="form-group">
+      <label class="h4 text-primary">Course title</label>
+      <br>
+      <input type="text" class="form-control w-50" placeholder="Enter course title" name="title">
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div> -->
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#courseModal" data-bs-whatever="@mdo">Add Course</button>
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#professorModal" data-bs-whatever="@fat">Add Professor</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookModal" data-bs-whatever="@getbootstrap">Add Book</button> -->
+
+<div class="modal fade" id="courseModal" tabindex="-1" aria-labelledby="course" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-primary" id="course">Add new Course</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="course-form" method="post">
+          <div class="mb-3">
+            <label for="title" class="col-form-label">Title:</label>
+            <input type="text" class="form-control" name="title">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="modal fade" id="professorModal" tabindex="-1" aria-labelledby="professor" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-primary" id="professor">Add new Professor</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="professor-form" method="post">
+          <div class="mb-3">
+            <label for="name" class="col-form-label">Name:</label>
+            <input type="text" class="form-control" name="name">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="bookModal" tabindex="-1" aria-labelledby="book" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-primary" id="book">Add new Book</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="book-form" method="post">
+          <div class="mb-3">
+            <label for="isbn" class="col-form-label">ISBN:</label>
+            <input type="text" class="form-control" name="isbn">
+          </div>
+          <div class="mb-3">
+            <label for="title" class="col-form-label">Title:</label>
+            <input type="text" class="form-control" name="title">
+          </div>
+          <div class="mb-3">
+            <label for="genre" class="col-form-label">Genre:</label>
+            <input type="text" class="form-control" name="genre">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+<script>
+
+  clearInputFields = () => {
+      let elements = document.getElementsByTagName("input");
+      for (let i = 0; i < elements.length; i++) {
+        if (elements[i].type == "text") {
+          elements[i].value = "";
+        }
+      }
+  }
+
+  $(document).ready(function() {
+    // CourseService.reload_courses_datatable();
+
+    // FormValidation.validate("#course-form", {}, function (data) {
+    //   Utils.block_ui("#add-course-modal");
+    //   $('#add-course-modal button[type="cancel"]').trigger("click");
+
+    //   $.post(Constants.API_BASE_URL + "backend/add_course.php", data)
+    //     .done(function (data) {
+    //       Utils.unblock_ui("#add-course-modal");
+    //       $("#add-course-modal").modal("toggle");
+    //       toastr.success("You have successfully added the patient.");
+    //       CourseService.reload_courses_datatable();
+    //     })
+    //     .fail(function (xhr) {
+    //       toastr.error("Error.");
+    //     });
+    // });
+
+
+    /*---------------------------------------------------------------------------------*/
+    $("#course-form").on("submit", function(event){
+      event.preventDefault();
+
+      $.ajax({
+        url: "backend/get_courses.php",
+        type: "get",
+        data: $(this).serialize(),
+      });
+
+      clearInputFields();
+    });
+
+
+
+    // $("#professor-form").on("submit", function(event){
+    //   event.preventDefault(); // Prevent the form from submitting normally
+    //   //TODO make add_professor.php!!!!!!!
+    //   $.ajax({
+    //     url: "backend/add_professor.php",
+    //     type: "post",
+    //     data: $(this).serialize(), // Serialize the form data
+    //   });
+
+    //   clearInputFields();
+    // });
+
+    // $("#book-form").on("submit", function(event){
+    //   event.preventDefault(); // Prevent the form from submitting normally
+    //   //TODO make add_book.php!!!!!!!
+    //   $.ajax({
+    //     url: "backend/add_book.php",
+    //     type: "post",
+    //     data: $(this).serialize(), // Serialize the form data
+    //   });
+
+    //   clearInputFields();
+    // });
+  });
+</script>
