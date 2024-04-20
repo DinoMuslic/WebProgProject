@@ -14,6 +14,7 @@
           >
             Add Course
           </button>
+
           <button
             class="btn btn-primary"
             type="button"
@@ -23,6 +24,17 @@
           >
             Add Professor
           </button>
+
+          <button
+            class="btn btn-primary"
+            type="button"
+            class="btn btn-info"
+            data-bs-toggle="modal"
+            data-bs-target="#add-student-modal"
+          >
+            Add Student
+          </button>
+
           <div class="small text-white">
             <i class="fas fa-angle-right"></i>
           </div>
@@ -77,6 +89,33 @@
               <th data-name="faculty">Faculty</th>
               <th data-name="department">Department</th>
               <th data-name="salary">Salary</th>
+              <th data-name="action">Action</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-4" id="students-table">
+    <div class="card-header text-primary">
+      <i class="fas fa-table me-1"></i>
+      STUDENTS TABLE
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table
+          class="table table-striped table-bordered table-hover table-responsive w-100"
+          id="tbl_students"
+        >
+          <thead>
+            <tr>
+              <th data-name="id">ID</th>
+              <th data-name="first_name">First Name</th>
+              <th data-name="last_name">Last Name</th>
+              <th data-name="faculty">Faculty</th>
+              <th data-name="department">Department</th>
+              <th data-name="enrolment_year">Enrolment Year</th>
               <th data-name="action">Action</th>
             </tr>
           </thead>
@@ -242,6 +281,88 @@
   </div>
 </div>
 
+<div
+  class="modal fade"
+  id="add-student-modal"
+  tabindex="-1"
+  aria-labelledby="add-student-label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="add-student-form">
+        <div class="modal-header">
+          <h5 class="modal-title" id="add-student-label">Add student</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="id" id="id" />
+          <div class="mb-3">
+            <label for="title" class="col-form-label">First Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="first_name"
+              id="first_name"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="last_name" class="col-form-label">Last Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="last_name"
+              id="last_name"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="faculty" class="col-form-label">Faculty:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="faculty"
+              id="faculty"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="department" class="col-form-label">Department:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="department"
+              id="department"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="enrolment_year" class="col-form-label">Year of enrolment:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="enrolment_year"
+              id="enrolment_year"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="cancel"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Add student</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
 <script>
   $("document").ready(function() {
@@ -279,6 +400,25 @@
           $("#add-professor-modal").modal("toggle");
           toastr.success("Professor successfuly added.");
           ProfessorService.reload_professors_datatable();
+        })
+        .fail(function (xhr) {
+          toastr.error("Error");
+        });
+    });
+
+    StudentService.reload_students_datatable();
+    FormValidation.validate("#add-student-form", {}, function (data) {
+      Utils.block_ui("#add-student-modal");
+      $('#add-student-modal button[type="cancel"]').trigger("click");
+      console.log(data);
+
+      $.post(Constants.API_BASE_URL + "backend/add_student.php", data)
+        .done(function (data) {
+          console.log(Constants.API_BASE_URL + "backend/add_student.php");
+          Utils.unblock_ui("#add-student-modal");
+          $("#add-student-modal").modal("toggle");
+          toastr.success("student successfuly added.");
+          StudentService.reload_students_datatable();
         })
         .fail(function (xhr) {
           toastr.error("Error");
