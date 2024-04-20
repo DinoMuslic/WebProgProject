@@ -24,4 +24,19 @@ class CourseService {
             'data' => $rows
         ];
     }
+
+    public function delete_course_by_id($id) {
+        return $this->course_dao->delete_course_by_id($id);
+    }
+
+    public function get_course_by_id($id) {
+        return $this->course_dao->get_course_by_id($id);
+    }
+
+    public function edit_course($course) {
+        $id = $course['id'];
+        unset($course['id']);
+        
+        $this->course_dao->edit_course($id, $course);
+    }
 }

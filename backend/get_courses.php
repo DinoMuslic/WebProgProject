@@ -9,8 +9,9 @@ $params = [
     "search" => $payload['search']['value'],
     "draw" => $payload['draw'],
     "limit" => (int)$payload['length'],
-    "order_column" => $payload['order'][0]['name'],
-    "order_direction" => $payload['order'][0]['dir'],
+    "order_column" => isset($payload['order']) ? $payload['order'][0]['name'] : 'title',
+    "order_direction" => isset($payload['order']) ? $payload['order'][0]['dir'] : 'asc',
+
 ];
 
 $course_service = new CourseService();
@@ -24,7 +25,14 @@ $data = $course_service->get_courses_paginated(
     $params['order_direction']
 );
 
-
+foreach($data['data'] as $id => $course) {
+    $data['data'][$id]['action'] = '<div class="d-flex justify-content-center"' . 
+                                        '<div class="btn-group" role="group" aria-label="Actions">' .
+                                            '<button style="margin-right: 10px;" type="button" class="btn btn-outline-primary" onClick="CourseService.open_edit_course_modal('. $course['id'] .')">Edit</button>' .
+                                            '<button type="button" class="btn btn-outline-danger" onClick="CourseService.delete_course('. $course['id'] .')">Delete</button>' .
+                                        '</div>' . 
+                                    '</div>';    
+}
 
 // Response
 echo json_encode([

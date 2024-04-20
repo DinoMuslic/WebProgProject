@@ -32,4 +32,23 @@ class CourseDao extends BaseDao {
             'search' => $search
         ]);
     }
+
+    public function get_course_by_id($id) {
+        return $this->query_unique("SELECT * FROM courses WHERE id = :id", ['id' => $id]);
+    }
+
+    public function delete_course_by_id($id) {
+        $query = "DELETE FROM courses WHERE id = :id";
+        $this->execute($query, ['id' => $id]);
+    }
+
+    public function edit_course($id, $course) {
+        $query = "UPDATE courses SET title = :title
+                  WHERE id = :id";
+        $this->execute($query, [
+            'title' => $course['title'],
+            'id' => $id
+        ]);
+    }
+    
 }
