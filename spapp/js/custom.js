@@ -101,8 +101,8 @@ $(document).ready(function() {
   });
 
   app.route({
-    view : "get_tables",
-    load : "get_tables.html",
+    view : "dashboard",
+    load : "dashboard.html",
     onCreate: function() {  },
     onReady: function() {  }
   });

@@ -14,7 +14,10 @@ class CourseDao extends BaseDao {
     public function count_courses_paginated($search) {
         $query = "SELECT COUNT(*) AS count
                   FROM courses
-                  WHERE LOWER(title) LIKE CONCAT('%', :search, '%');";
+                  WHERE LOWER(title) LIKE CONCAT('%', :search, '%') OR 
+                        LOWER(department) LIKE CONCAT('%', :search, '%') OR
+                        LOWER(faculty) LIKE CONCAT('%', :search, '%') OR
+                        professor_id LIKE CONCAT('%', :search, '%');";
         
         return $this->query_unique($query, [
             'search' => $search
@@ -24,7 +27,10 @@ class CourseDao extends BaseDao {
     public function get_courses_paginated($offset, $limit, $search, $order_column, $order_direction) {
         $query = "SELECT * 
                   FROM courses
-                  WHERE LOWER(title) LIKE CONCAT('%', :search, '%')
+                  WHERE LOWER(title) LIKE CONCAT('%', :search, '%') OR
+                        LOWER(department) LIKE CONCAT('%', :search, '%') OR
+                        LOWER(faculty) LIKE CONCAT('%', :search, '%') OR
+                        professor_id LIKE CONCAT('%', :search, '%')
                   ORDER BY {$order_column} {$order_direction}
                   LIMIT {$offset}, {$limit}";
         
