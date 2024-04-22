@@ -45,6 +45,16 @@
             Add Book
           </button>
 
+          <button
+            class="btn btn-primary"
+            type="button"
+            class="btn btn-info"
+            data-bs-toggle="modal"
+            data-bs-target="#add-material-modal"
+          >
+            Add Course Material
+          </button>
+
           <div class="small text-white">
             <i class="fas fa-angle-right"></i>
           </div>
@@ -169,6 +179,31 @@
   </div>
 
   <br>
+
+  <div class="card mb-4" id="materials-table">
+    <div class="card-header text-primary">
+      <i class="fas fa-table me-1"></i>
+      MATERIALS TABLE
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table
+          class="table table-striped table-bordered table-hover table-responsive w-100"
+          id="tbl_materials"
+        >
+          <thead>
+            <tr>
+              <th data-name="id">ID</th>
+              <th data-name="course_id">Course ID</th>
+              <th data-name="title">Title</th>
+              <th data-name="contents">Contents</th>
+              <th data-name="action">Action</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
 
 
 </div>
@@ -493,8 +528,76 @@
   </div>
 </div>
 
+<div
+  class="modal fade"
+  id="add-material-modal"
+  tabindex="-1"
+  aria-labelledby="add-material-label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="add-material-form">
+        <div class="modal-header">
+          <h5 class="modal-title" id="add-material-label">Add material</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="id" id="id" />
+          <div class="mb-3">
+            <label for="course_id" class="col-form-label">Course ID:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="course_id"
+              id="course_id"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="title" class="col-form-label">Title:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="title"
+              id="title"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="contents" class="col-form-label">Contents:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="contents"
+              id="contents"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="cancel"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Add material</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <script>
+  $('button[data-bs-toggle]').click(function() {
+    var target = $(this).attr('data-bs-target');
+    $(target + ' form').trigger('reset');
+  });
+
   $("document").ready(function() {
     CourseService.reload_courses_datatable();
       FormValidation.validate("#add-course-form", {}, function (data) {
@@ -534,6 +637,8 @@
         .fail(function (xhr) {
           toastr.error("Error");
         });
+
+
     });
 
     StudentService.reload_students_datatable();
@@ -574,6 +679,25 @@
         });
     });
 
+    MaterialService.reload_materials_datatable();
+    FormValidation.validate("#add-material-form", {}, function (data) {
+      Utils.block_ui("#add-material-modal");
+      $('#add-material-modal button[type="cancel"]').trigger("click");
+      console.log(data);
+
+      $.post(Constants.API_BASE_URL + "backend/add_material.php", data)
+        .done(function (data) {
+          console.log(Constants.API_BASE_URL + "backend/add_material.php");
+          Utils.unblock_ui("#add-material-modal");
+          $("#add-material-modal").modal("toggle");
+          toastr.success("material successfuly added.");
+          MaterialService.reload_materials_datatable();
+        })
+        .fail(function (xhr) {
+          toastr.error("Error");
+        });
+
+    });
   });
 </script>
 
