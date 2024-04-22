@@ -6,7 +6,6 @@ var CourseService = {
         [
           { data: "id" },
           { data: "title" },
-          { data: "professor_id" },
           { data: "faculty" },
           { data: "department" },
           { data: "action" }
@@ -21,7 +20,6 @@ var CourseService = {
             $('#add-course-modal').modal("toggle");
             $("#add-course-form input[name='id']").val(data.id);
             $("#add-course-form input[name='title']").val(data.title);
-            $("#add-course-form input[name='professor_id']").val(data.professor_id);
             $("#add-course-form input[name='faculty']").val(data.faculty);
             $("#add-course-form input[name='department']").val(data.department);
           }

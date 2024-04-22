@@ -16,8 +16,7 @@ class CourseDao extends BaseDao {
                   FROM courses
                   WHERE LOWER(title) LIKE CONCAT('%', :search, '%') OR 
                         LOWER(department) LIKE CONCAT('%', :search, '%') OR
-                        LOWER(faculty) LIKE CONCAT('%', :search, '%') OR
-                        professor_id LIKE CONCAT('%', :search, '%');";
+                        LOWER(faculty) LIKE CONCAT('%', :search, '%');";
         
         return $this->query_unique($query, [
             'search' => $search
@@ -29,8 +28,7 @@ class CourseDao extends BaseDao {
                   FROM courses
                   WHERE LOWER(title) LIKE CONCAT('%', :search, '%') OR
                         LOWER(department) LIKE CONCAT('%', :search, '%') OR
-                        LOWER(faculty) LIKE CONCAT('%', :search, '%') OR
-                        professor_id LIKE CONCAT('%', :search, '%')
+                        LOWER(faculty) LIKE CONCAT('%', :search, '%')
                   ORDER BY {$order_column} {$order_direction}
                   LIMIT {$offset}, {$limit}";
         
@@ -49,10 +47,12 @@ class CourseDao extends BaseDao {
     }
 
     public function edit_course($id, $course) {
-        $query = "UPDATE courses SET title = :title
+        $query = "UPDATE courses SET title = :title, faculty = :faculty, department = :department
                   WHERE id = :id";
         $this->execute($query, [
             'title' => $course['title'],
+            'faculty' => $course['faculty'],
+            'department' => $course['department'],
             'id' => $id
         ]);
     }
