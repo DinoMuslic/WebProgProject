@@ -40,6 +40,9 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="assets/css/dataTables-latest.css">
+    <link rel="stylesheet" href="assets/css/toastr.min.css">
+
 </head>
 
 <body style="overflow-x: hidden; overflow-y: scroll;">
@@ -58,7 +61,7 @@
                 <a href="#staff" class="reloadBtn nav-item nav-link">Staff</a>
                 <a href="#library" class="reloadBtn nav-item nav-link">Library</a>
                 <a href="#user-profile" class="reloadBtn nav-item nav-link">Profile</a>
-                <a href="#dashboard-users" class="reloadBtn nav-item nav-link">Admin Page</a>
+                <a href="#dashboard" class="reloadBtn nav-item nav-link">Admin Page</a>
             </div>
             <a href="#login" class="reloadBtn nav-item btn btn-primary py-4 px-lg-5">Sign In</a>
         </div>
@@ -88,12 +91,16 @@
         <section id="user-profile"></section>
         <section id="register"></section>
         <section id="login"></section>
+        <section id="add_tables"></section>
+        <section id="dashboard"></section>
         <section id="404"></section>
     </main>
 
      <!--Footer-->
      <div style="width: 100%; background-color: #114268; height: 3vh; position: fixed; bottom: 0; z-index: 1;" class="text-center align-middle"></div>
         
+    
+     <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -110,9 +117,26 @@
     <script src="js/main.js"></script>
     <script src="js/hideShowNav.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    
     <script src="spapp/js/jquery.spapp.js"></script>
     <script src="spapp/js/custom.js"></script>
+
+    <script src="assets/js/jquery.validate.min.js"></script>
+    <script src="assets/js/block-ui.js"></script>
+    <script src="assets/js/toastr.min.js"></script>
+    <script src="assets/js/dataTables-latest.js"></script>
+
+    <script src="utils/rest_client.js"></script>
+
+    <script src="services/courses.js"></script>
+    <script src="services/professors.js"></script>
+    <script src="services/students.js"></script>
+    <script src="services/books.js"></script>
+    <script src="services/course_materials.js"></script>
+
+    <script src="utils/utils.js"></script>
+    <script src="utils/constants.js"></script>
+    <script src="utils/form_validation.js"></script>
     
 
 </body>
