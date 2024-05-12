@@ -2,7 +2,7 @@ var ProfessorService = {
     reload_professors_datatable: function () {
       Utils.get_datatable(
         "tbl_professors",
-        Constants.API_BASE_URL + "backend/get_professors.php",
+        Constants.API_BASE_URL + "backend/professors",
         [
           { data: "id" },
           { data: "first_name" },
@@ -17,7 +17,7 @@ var ProfessorService = {
 
     open_edit_professor_modal : function(professor_id) {
         RestClient.get(
-          'backend/get_professor.php?id=' + professor_id,
+          'backend/professors/' + professor_id,
           function(data) {
             $('#add-professor-modal').modal("toggle");
             $("#add-professor-form input[name='id']").val(data.id);
@@ -33,7 +33,7 @@ var ProfessorService = {
     delete_professor : function(professor_id) {
       if(confirm("Do you really want to delete this professor?")) {
         RestClient.delete(
-          "backend/delete_professor.php?id=" + professor_id,
+          "backend/professors/delete/" + professor_id,
           {},
           function(data) {
             toastr.success("professor deleted successfully");

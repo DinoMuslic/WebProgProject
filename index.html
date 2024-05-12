@@ -63,7 +63,8 @@
                 <a href="#user-profile" class="reloadBtn nav-item nav-link">Profile</a>
                 <a href="#dashboard" class="reloadBtn nav-item nav-link">Admin Page</a>
             </div>
-            <a href="#login" class="reloadBtn nav-item btn btn-primary py-4 px-lg-5">Sign In</a>
+            <!-- <a href="#login" class="reloadBtn nav-item btn btn-primary py-4 px-lg-5">Sign In</a> -->
+            <span class="reloadBtn nav-item btn btn-primary py-4 px-lg-5" onclick=Utils.logout()>Sign Out</span>
         </div>
     </nav>
     <!-- Navbar End -->
@@ -138,6 +139,11 @@
     <script src="utils/constants.js"></script>
     <script src="utils/form_validation.js"></script>
     
+    <script>
+         if (!Utils.get_from_localstorage("user")) {
+            window.location = "login";
+         }
+    </script>
 
 </body>
 

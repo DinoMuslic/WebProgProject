@@ -39,4 +39,8 @@ class BookService {
         
         $this->book_dao->edit_book($id, $book);
     }
+
+    public function get_all_books() {
+        return $this->book_dao->get_all_books();
+    }
 }

@@ -39,4 +39,8 @@ class CourseService {
         
         $this->course_dao->edit_course($id, $course);
     }
+
+    public function get_all_courses() {
+        return $this->course_dao->get_all_courses();
+    }
 }
