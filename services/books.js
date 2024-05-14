@@ -2,10 +2,9 @@ var BookService = {
     reload_books_datatable: function () {
       Utils.get_datatable(
         "tbl_books",
-        Constants.API_BASE_URL + "backend/get_books.php",
+        Constants.API_BASE_URL + "backend/books",
         [
           { data: "id" },
-          { data: "course_id" },
           { data: "title" },
           { data: "author" },
           { data: "genre" },
@@ -18,7 +17,7 @@ var BookService = {
 
     open_edit_book_modal : function(book_id) {
         RestClient.get(
-          'backend/get_book.php?id=' + book_id,
+          'backend/books/' + book_id,
           function(data) {
             $('#add-book-modal').modal("toggle");
             $("#add-book-form input[name='id']").val(data.id);
@@ -35,7 +34,7 @@ var BookService = {
     delete_book : function(book_id) {
       if(confirm("Do you really want to delete this book?")) {
         RestClient.delete(
-          "backend/delete_book.php?id=" + book_id,
+          "backend/books/delete/" + book_id,
           {},
           function(data) {
             toastr.success("book deleted successfully");

@@ -39,4 +39,8 @@ class ProfessorService {
         
         $this->professor_dao->edit_professor($id, $professor);
     }
+
+    public function get_all_professors() {
+        return $this->professor_dao->get_all_professors();
+    }
 }

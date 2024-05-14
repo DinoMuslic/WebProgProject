@@ -57,4 +57,8 @@ class CourseDao extends BaseDao {
         ]);
     }
     
+    public function get_all_courses() {
+        $query = "SELECT * FROM courses";
+        return  $this->query($query, []);
+    }
 }

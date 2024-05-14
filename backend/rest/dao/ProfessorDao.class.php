@@ -63,4 +63,8 @@ class ProfessorDao extends BaseDao {
         ]);
     }
     
+    public function get_all_professors() {
+        $query = "SELECT * FROM professors";
+        return  $this->query($query, []);
+    }
 }

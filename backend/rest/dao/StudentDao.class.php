@@ -16,6 +16,7 @@ class StudentDao extends BaseDao {
                   FROM students
                   WHERE LOWER(first_name) LIKE CONCAT('%', :search, '%') OR 
                         LOWER(last_name) LIKE CONCAT('%', :search, '%') OR
+                        LOWER(email) LIKE CONCAT('%', :search, '%') OR
                         LOWER(faculty) LIKE CONCAT('%', :search, '%') OR
                         LOWER(department) LIKE CONCAT('%', :search, '%') OR
                         LOWER(enrolment_year) LIKE CONCAT('%', :search, '%');";
@@ -30,6 +31,7 @@ class StudentDao extends BaseDao {
                   FROM students
                   WHERE LOWER(first_name) LIKE CONCAT('%', :search, '%') OR 
                         LOWER(last_name) LIKE CONCAT('%', :search, '%') OR
+                        LOWER(email) LIKE CONCAT('%', :search, '%') OR
                         LOWER(faculty) LIKE CONCAT('%', :search, '%') OR
                         LOWER(department) LIKE CONCAT('%', :search, '%') OR
                         LOWER(enrolment_year) LIKE CONCAT('%', :search, '%')
@@ -51,15 +53,21 @@ class StudentDao extends BaseDao {
     }
 
     public function edit_student($id, $student) {
-        $query = "UPDATE students SET first_name = :first_name, last_name = :last_name, faculty = :faculty, department = :department, enrolment_year = :enrolment_year
+        $query = "UPDATE students SET first_name = :first_name, last_name = :last_name, email = :email, faculty = :faculty, department = :department, enrolment_year = :enrolment_year
                   WHERE id = :id";
         $this->execute($query, [
             'first_name' => $student['first_name'],
             'last_name' => $student['last_name'],
+            'email' => $student['email'],
             'faculty' => $student['faculty'],
             'department' => $student['department'],
             'enrolment_year' => $student['enrolment_year'],
             'id' => $id
         ]);
+    }
+
+    public function get_all_students() {
+        $query = "SELECT * FROM students";
+        return  $this->query($query, []);
     }
 }

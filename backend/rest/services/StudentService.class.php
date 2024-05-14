@@ -11,6 +11,7 @@ class StudentService {
     }
 
     public function add_student($student) {
+        $student['password'] = password_hash($student['password'], PASSWORD_BCRYPT);
         return $this->student_dao->add_student($student);
     }
 
@@ -38,5 +39,9 @@ class StudentService {
         unset($student['id']);
         
         $this->student_dao->edit_student($id, $student);
+    }
+
+    public function get_all_students() {
+        return $this->student_dao->get_all_students();
     }
 }

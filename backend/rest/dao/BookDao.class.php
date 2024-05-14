@@ -14,8 +14,7 @@ class BookDao extends BaseDao {
     public function count_books_paginated($search) {
         $query = "SELECT COUNT(*) AS count
                   FROM books
-                  WHERE LOWER(course_id) LIKE CONCAT('%', :search, '%') OR 
-                        LOWER(title) LIKE CONCAT('%', :search, '%') OR
+                  WHERE LOWER(title) LIKE CONCAT('%', :search, '%') OR
                         LOWER(genre) LIKE CONCAT('%', :search, '%') OR
                         LOWER(publication_year) LIKE CONCAT('%', :search, '%') OR
                         LOWER(pdf_link) LIKE CONCAT('%', :search, '%') OR
@@ -29,8 +28,7 @@ class BookDao extends BaseDao {
     public function get_books_paginated($offset, $limit, $search, $order_column, $order_direction) {
         $query = "SELECT * 
                   FROM books
-                  WHERE LOWER(course_id) LIKE CONCAT('%', :search, '%') OR
-                        LOWER(title) LIKE CONCAT('%', :search, '%') OR
+                  WHERE LOWER(title) LIKE CONCAT('%', :search, '%') OR
                         LOWER(genre) LIKE CONCAT('%', :search, '%') OR
                         LOWER(publication_year) LIKE CONCAT('%', :search, '%') OR
                         LOWER(pdf_link) LIKE CONCAT('%', :search, '%') OR
@@ -53,10 +51,9 @@ class BookDao extends BaseDao {
     }
 
     public function edit_book($id, $book) {
-        $query = "UPDATE books SET course_id = :course_id, title = :title, genre = :genre, publication_year = :publication_year, pdf_link = :pdf_link, author = :author
+        $query = "UPDATE books SET title = :title, genre = :genre, publication_year = :publication_year, pdf_link = :pdf_link, author = :author
                   WHERE id = :id";
         $this->execute($query, [
-            'course_id' => $book['course_id'],
             'title' => $book['title'],
             'genre' => $book['genre'],
             'publication_year' => $book['publication_year'],
@@ -64,6 +61,11 @@ class BookDao extends BaseDao {
             'author' => $book['author'],
             'id' => $id
         ]);
+    }
+
+    public function get_all_books() {
+        $query = "SELECT * FROM books";
+        return  $this->query($query, []);
     }
     
 }
