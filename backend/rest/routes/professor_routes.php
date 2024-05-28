@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../services/ProfessorService.class.php';
+require_once __DIR__ . '/../services/StudentService.class.php';
 
 Flight::set('professor_service', new ProfessorService());
 
@@ -126,6 +127,8 @@ Flight::group('/professors', function () {
      *              @OA\Property(property="faculty", type="string", example="Some faculty", description="professor faculty"),
      *              @OA\Property(property="department", type="string", example="Some department", description="professor department"),
      *              @OA\Property(property="salary", type="number", example="Some professor salary", description="professor salary"),
+     *              @OA\Property(property="isAdmin", type="string", example="Some hashed password", description="is professor admin"),
+     *              @OA\Property(property="password", type="number", example="Some password", description="professor password"),
      *          )
      *      )
      * )

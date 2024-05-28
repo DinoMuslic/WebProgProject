@@ -124,6 +124,8 @@ Flight::group('/courses', function () {
      *              @OA\Property(property="title", type="string", example="Some course title", description="Course title"),
      *              @OA\Property(property="faculty", type="string", example="Some faculty", description="Course faculty"),
      *              @OA\Property(property="department", type="string", example="Some department", description="Course department"),
+     *              @OA\Property(property="professor", type="string", example="Some professor", description="Course professor"),
+     *              @OA\Property(property="image", type="string", example="Some image", description="Course image"),
      *          )
      *      )
      * )
@@ -133,7 +135,7 @@ Flight::group('/courses', function () {
         $payload = Flight::request()->data->getData();
     
         if($payload['title'] == NULL || $payload['title'] == '') {
-            Flight::halt(500, "First name field is missing!");
+            Flight::halt(500, "Title field is missing!");
         }
     
         if($payload['id'] != null && $payload['id'] != '') {

@@ -35,7 +35,7 @@
             Add Student
           </button>
 
-          <button
+          <!-- <button
             class="btn btn-primary"
             type="button"
             class="btn btn-info"
@@ -43,7 +43,7 @@
             data-bs-target="#add-book-modal"
           >
             Add Book
-          </button>
+          </button> -->
           <div class="small text-white">
             <i class="fas fa-angle-right"></i>
           </div>
@@ -71,6 +71,8 @@
               <th data-name="title">Title</th>
               <th data-name="faculty">Faculty</th>
               <th data-name="department">Department</th>
+              <th data-name="professor">Professor</th>
+              <th data-name="image">Image</th>
               <th data-name="action">Action</th>
             </tr>
           </thead>
@@ -97,9 +99,11 @@
               <th data-name="id">ID</th>
               <th data-name="first_name">First Name</th>
               <th data-name="last_name">Last Name</th>
+              <th data-name="email">Email</th>
               <th data-name="faculty">Faculty</th>
               <th data-name="department">Department</th>
               <th data-name="salary">Salary</th>
+              <th data-name="isAdmin">Is admin (No - 0 | Yes - 1)</th>
               <th data-name="action">Action</th>
             </tr>
           </thead>
@@ -140,7 +144,7 @@
 
   <br>
 
-  <div class="card mb-4" id="books-table">
+  <!-- <div class="card mb-4" id="books-table">
     <div class="card-header text-primary">
       <i class="fas fa-table me-1"></i>
       BOOKS TABLE
@@ -165,7 +169,7 @@
         </table>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <br>
 </div>
@@ -217,6 +221,24 @@
               class="form-control"
               name="department"
               id="department"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="professor" class="col-form-label">Professor:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="professor"
+              id="professor"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="image" class="col-form-label">Image:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="image"
+              id="image"
             />
           </div>
         </div>
@@ -275,6 +297,24 @@
             />
           </div>
           <div class="mb-3">
+            <label for="email" class="col-form-label">Email:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="email"
+              id="email"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="col-form-label">Password:</label>
+            <input
+              type="text"
+              class="form-control"
+              name="password"
+              id="password"
+            />
+          </div>
+          <div class="mb-3">
             <label for="faculty" class="col-form-label">Faculty:</label>
             <input
               type="text"
@@ -299,6 +339,15 @@
               class="form-control"
               name="salary"
               id="salary"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="isAdmin" class="col-form-label">Is admin (No - 0 | Yes - 1):</label>
+            <input
+              type="text"
+              class="form-control"
+              name="isAdmin"
+              id="isAdmin"
             />
           </div>
         </div>
@@ -365,15 +414,7 @@
               id="email"
             />
           </div>
-          <div class="mb-3">
-            <label for="password" class="col-form-label">Password:</label>
-            <input
-              type="password"
-              class="form-control"
-              name="password"
-              id="password"
-            />
-          </div>
+          
           <div class="mb-3">
             <label for="faculty" class="col-form-label">Faculty:</label>
             <input
@@ -417,7 +458,7 @@
   </div>
 </div>
 
-<div
+<!-- <div
   class="modal fade"
   id="add-book-modal"
   tabindex="-1"
@@ -497,7 +538,7 @@
       </form>
     </div>
   </div>
-</div>
+</div> -->
 
 <script>
   $('button[data-bs-toggle]').click(function() {
@@ -538,8 +579,6 @@
         .fail(function (xhr) {
           toastr.error("Error");
         });
-
-
     });
 
     StudentService.reload_students_datatable();
@@ -559,22 +598,28 @@
         });
     });
 
-    BookService.reload_books_datatable();
-    FormValidation.validate("#add-book-form", {}, function (data) {
-      Utils.block_ui("#add-book-modal");
-      $('#add-book-modal button[type="cancel"]').trigger("click")
-      $.post(Constants.API_BASE_URL + "backend/books/add", data)
-        .done(function (data) {
+    // BookService.reload_books_datatable();
+    // FormValidation.validate("#add-book-form", {}, function (data) {
+    //   Utils.block_ui("#add-book-modal");
+    //   $('#add-book-modal button[type="cancel"]').trigger("click")
+    //   $.post(Constants.API_BASE_URL + "backend/books/add", data)
+    //     .done(function (data) {
           
-         Utils.unblock_ui("#add-book-modal");
-          $("#add-book-modal").modal("toggle");
-          toastr.success("book successfuly added.");
-          BookService.reload_books_datatable();
-        })
-        .fail(function (xhr) {
-          toastr.error("Error");
-        });
-    });
+    //      Utils.unblock_ui("#add-book-modal");
+    //       $("#add-book-modal").modal("toggle");
+    //       toastr.success("book successfuly added.");
+    //       BookService.reload_books_datatable();
+    //     })
+    //     .fail(function (xhr) {
+    //       toastr.error("Error");
+    //     });
+    // });
   });
+
+  IsAdmin.validate(function(isAdmin) {
+            if (!isAdmin) {
+              window.location.href = "../frontend";
+            }
+        });
 </script>
 

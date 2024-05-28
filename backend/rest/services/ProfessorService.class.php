@@ -11,6 +11,7 @@ class ProfessorService {
     }
 
     public function add_professor($professor) {
+        $professor['password'] = password_hash($professor['password'], PASSWORD_BCRYPT);
         return $this->professor_dao->add_professor($professor);
     }
 
@@ -42,5 +43,9 @@ class ProfessorService {
 
     public function get_all_professors() {
         return $this->professor_dao->get_all_professors();
+    }
+
+    public function get_limited_professors($limit) {
+        return $this->professor_dao->get_professors_paginated(0, $limit, '', 'id', 'ASC')['data'];
     }
 }

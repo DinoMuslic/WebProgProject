@@ -16,6 +16,7 @@ class ProfessorDao extends BaseDao {
                   FROM professors
                   WHERE LOWER(first_name) LIKE CONCAT('%', :search, '%') OR 
                         LOWER(last_name) LIKE CONCAT('%', :search, '%') OR
+                        LOWER(email) LIKE CONCAT('%', :search, '%') OR
                         LOWER(faculty) LIKE CONCAT('%', :search, '%') OR
                         LOWER(department) LIKE CONCAT('%', :search, '%') OR
                         LOWER(salary) LIKE CONCAT('%', :search, '%');";
@@ -30,6 +31,7 @@ class ProfessorDao extends BaseDao {
                   FROM professors
                   WHERE LOWER(first_name) LIKE CONCAT('%', :search, '%') OR 
                         LOWER(last_name) LIKE CONCAT('%', :search, '%') OR
+                        LOWER(email) LIKE CONCAT('%', :search, '%') OR
                         LOWER(faculty) LIKE CONCAT('%', :search, '%') OR
                         LOWER(department) LIKE CONCAT('%', :search, '%') OR
                         LOWER(salary) LIKE CONCAT('%', :search, '%')
@@ -51,14 +53,16 @@ class ProfessorDao extends BaseDao {
     }
 
     public function edit_professor($id, $professor) {
-        $query = "UPDATE professors SET first_name = :first_name, last_name = :last_name, faculty = :faculty, department = :department, salary = :salary
+        $query = "UPDATE professors SET first_name = :first_name, last_name = :last_name, email = :email, isAdmin = :isAdmin, faculty = :faculty, department = :department, salary = :salary
                   WHERE id = :id";
         $this->execute($query, [
             'first_name' => $professor['first_name'],
             'last_name' => $professor['last_name'],
+            'email' => $professor['email'],
             'faculty' => $professor['faculty'],
             'department' => $professor['department'],
             'salary' => $professor['salary'],
+            'isAdmin' => $professor['isAdmin'],
             'id' => $id
         ]);
     }

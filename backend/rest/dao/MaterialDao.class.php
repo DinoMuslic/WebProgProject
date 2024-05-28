@@ -16,6 +16,7 @@ class MaterialDao extends BaseDao {
                   FROM course_materials
                   WHERE LOWER(course_id) LIKE CONCAT('%', :search, '%') OR 
                         LOWER(title) LIKE CONCAT('%', :search, '%') OR
+                        LOWER(announcements) LIKE CONCAT('%', :search, '%') OR
                         LOWER(contents) LIKE CONCAT('%', :search, '%');"; 
         
         return $this->query_unique($query, [
@@ -28,6 +29,7 @@ class MaterialDao extends BaseDao {
                   FROM course_materials
                   WHERE LOWER(course_id) LIKE CONCAT('%', :search, '%') OR
                         LOWER(title) LIKE CONCAT('%', :search, '%') OR
+                        LOWER(announcements) LIKE CONCAT('%', :search, '%') OR
                         LOWER(contents) LIKE CONCAT('%', :search, '%')
                   ORDER BY {$order_column} {$order_direction}
                   LIMIT {$offset}, {$limit}";
@@ -41,20 +43,39 @@ class MaterialDao extends BaseDao {
         return $this->query_unique("SELECT * FROM course_materials WHERE id = :id", ['id' => $id]);
     }
 
+    public function get_material_by_course_id($course_id) {
+        return $this->query_unique("SELECT * FROM course_materials WHERE course_id = :course_id", ['course_id' => $course_id]);
+    }
+
+    public function get_all_materials_by_course_id($course_id) {
+        return $this->query("SELECT * FROM course_materials WHERE course_id = :course_id", ['course_id' => $course_id]);
+    }
+
     public function delete_material_by_id($id) {
         $query = "DELETE FROM course_materials WHERE id = :id";
         $this->execute($query, ['id' => $id]);
     }
 
+    public function delete_materials_by_course_id($course_id) {
+        $query = "DELETE FROM course_materials WHERE course_id = :course_id";
+        $this->execute($query, ['course_id' => $course_id]);
+    }
+
     public function edit_material($id, $material) {
-        $query = "UPDATE course_materials SET course_id = :course_id, title = :title, contents = :contents
+        $query = "UPDATE course_materials SET course_id = :course_id, title = :title, announcements = :announcements, contents = :contents
                   WHERE id = :id";
         $this->execute($query, [
             'course_id' => $material['course_id'],
             'title' => $material['title'],
+            'announcements' => $material['announcements'],
             'contents' => $material['contents'],
             'id' => $id
         ]);
+    }
+
+    public function get_all_materials() {
+        $query = "SELECT * FROM course_materials";
+        return  $this->query($query, []);
     }
     
 }
