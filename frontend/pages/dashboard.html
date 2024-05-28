@@ -581,6 +581,8 @@
         });
     });
 
+    console.log(Constants.get_api_base_url());
+
     StudentService.reload_students_datatable();
     FormValidation.validate("#add-student-form", {}, function (data) {
       Utils.block_ui("#add-student-modal");
