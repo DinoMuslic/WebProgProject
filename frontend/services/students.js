@@ -2,7 +2,7 @@ var StudentService = {
     reload_students_datatable: function () {
       Utils.get_datatable(
         "tbl_students",
-        Constants.API_BASE_URL + "backend/students",
+        Constants.get_api_base_url() + "backend/students",
         [
           { data: "id" },
           { data: "first_name" },

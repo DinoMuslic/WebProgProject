@@ -2,7 +2,7 @@ var ProfessorService = {
     reload_professors_datatable: function () {
       Utils.get_datatable(
         "tbl_professors",
-        Constants.API_BASE_URL + "backend/professors",
+        Constants.get_api_base_url() + "backend/professors",
         [
           { data: "id" },
           { data: "first_name" },

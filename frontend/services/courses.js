@@ -2,7 +2,7 @@ var CourseService = {
     reload_courses_datatable: function () {
       Utils.get_datatable(
         "tbl_courses",
-        Constants.API_BASE_URL + "backend/courses",
+        Constants.get_api_base_url() + "backend/courses",
         [
           { data: "id" },
           { data: "title" },
