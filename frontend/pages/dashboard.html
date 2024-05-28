@@ -551,7 +551,7 @@
       FormValidation.validate("#add-course-form", {}, function (data) {
         Utils.block_ui("#add-course-modal");
         $('#add-course-modal button[type="cancel"]').trigger("click");
-        $.post(Constants.API_BASE_URL + "backend/courses/add", data)
+        $.post(Constants.get_api_base_url() + "backend/courses/add", data)
           .done(function (data) {
             Utils.unblock_ui("#add-course-modal");
             $("#add-course-modal").modal("toggle");
@@ -569,7 +569,7 @@
     FormValidation.validate("#add-professor-form", {}, function (data) {
       Utils.block_ui("#add-professor-modal");
       $('#add-professor-modal button[type="cancel"]').trigger("click")
-      $.post(Constants.API_BASE_URL + "backend/professors/add", data)
+      $.post(Constants.get_api_base_url() + "backend/professors/add", data)
         .done(function (data) {
           Utils.unblock_ui("#add-professor-modal");
           $("#add-professor-modal").modal("toggle");
@@ -586,7 +586,7 @@
       Utils.block_ui("#add-student-modal");
       $('#add-student-modal button[type="cancel"]').trigger("click")
 
-      $.post(Constants.API_BASE_URL + "backend/students/add", data)
+      $.post(Constants.get_api_base_url() + "backend/students/add", data)
         .done(function (data) {
           Utils.unblock_ui("#add-student-modal");
           $("#add-student-modal").modal("toggle");
@@ -602,7 +602,7 @@
     // FormValidation.validate("#add-book-form", {}, function (data) {
     //   Utils.block_ui("#add-book-modal");
     //   $('#add-book-modal button[type="cancel"]').trigger("click")
-    //   $.post(Constants.API_BASE_URL + "backend/books/add", data)
+    //   $.post(Constants.get_api_base_url() + "backend/books/add", data)
     //     .done(function (data) {
           
     //      Utils.unblock_ui("#add-book-modal");
