@@ -3,7 +3,7 @@ var Constants = {
         if(location.hostname == 'localhost') {
             return 'http://localhost:80/WebProgProject/';
         } else {
-            return "https://goldfish-app-wfyod.ondigitalocean.app/";
+            return "https://sea-turtle-app-98lri.ondigitalocean.app/";
          }
     
      } 
