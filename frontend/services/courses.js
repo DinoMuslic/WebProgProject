@@ -8,6 +8,8 @@ var CourseService = {
           { data: "title" },
           { data: "faculty" },
           { data: "department" },
+          { data: "professor" },
+          { data: "image" },
           { data: "action" }
         ]
       );
@@ -22,6 +24,7 @@ var CourseService = {
             $("#add-course-form input[name='title']").val(data.title);
             $("#add-course-form input[name='faculty']").val(data.faculty);
             $("#add-course-form input[name='department']").val(data.department);
+            $("#add-course-form input[name='image']").val(data.image);
           }
         )
     },

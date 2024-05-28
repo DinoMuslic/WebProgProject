@@ -67,15 +67,6 @@ Flight::group('/students', function () {
     });
 
     Flight::route('GET /', function() {
-        try {
-            $token = Flight::request()->getHeader("Authentication");
-            if(!$token)
-                Flight::halt(401, "Missing authentication header");
-
-            JWT::decode($token, new Key(JWT_SECRET, 'HS256'));
-        } catch (\Exception $e) {
-            Flight::halt(401, $e->getMessage());
-        }
         $payload = Flight::request()->query;
     
     
@@ -131,7 +122,7 @@ Flight::group('/students', function () {
      *      @OA\RequestBody(
      *          description="student data payload",
      *          @OA\JsonContent(
-     *              required={"first_name","last_name","faculty","department", "enrolment_year"},
+     *              required={"first_name","last_name", "email", "password},
      *              @OA\Property(property="id", type="string", example="1", description="student ID"),
      *              @OA\Property(property="first_name", type="string", example="Some student name", description="student name"),
      *              @OA\Property(property="last_name", type="string", example="Some student last name", description="student last name"),
@@ -202,6 +193,25 @@ Flight::group('/students', function () {
         $student = Flight::get('student_service') -> get_student_by_id($student_id);
     
         Flight::json($student, 200);
+    });
+
+    /**
+     * @OA\Get(
+     *      path="/students/info",
+     *      tags={"students"},
+     *      summary="Get logged in student information",
+     *      security={
+     *         {"ApiKey": {}}
+     *      },
+     *      @OA\Response(
+     *           response=200,
+     *           description="student data or false if student doesn't exist in the database"
+     *      )
+     * )
+     */
+
+     Flight::route('GET /info', function() {
+        Flight::json(Flight::get('user'), 200);
     });
 });
 

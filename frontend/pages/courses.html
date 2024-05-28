@@ -1,0 +1,99 @@
+   <style>
+    @media (max-width: 400px) {
+            .searchbar {
+                width: 500px !important;
+            }
+        }
+   </style>
+   
+   <!-- Header Start -->
+     <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Courses</h1>
+                    <nav aria-label="breadcrumb">
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Courses Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Courses</h6>
+                <h1 class="mb-5">Our Courses</h1>
+            </div>
+
+            <div id="courses-container" class="row g-4 justify-content-center">
+               
+            </div>
+        </div>
+    </div>
+    <!-- Courses End -->
+
+    <script>
+        RestClient.get(
+            "backend/courses/all",
+            function(response) {
+                // Sort the response by course title in ascending order
+                response.sort((a, b) => a.title.localeCompare(b.title));
+
+                // Select the container where courses will be displayed
+                const container = document.querySelector('#courses-container');
+                container.innerHTML = ''; // Clear existing content
+    
+                // Create a row to contain courses
+                let row = document.createElement('div');
+                row.classList.add('row');
+
+    
+                // Generate HTML for each course and append to the row
+                let delay = 0.1;
+                response.forEach(course => {
+                    const courseHTML = `
+                        <div class="col-lg-4 col-md-6 wow fadeInUp mb-5" data-wow-delay="${delay}s">
+                            <a href="#course">
+                                <div class="course-item bg-light" onclick="saveCourseDetails('${course.id}','${course.title}', '${course.professor}', '${course.department}')">
+                                    <div class="position-relative overflow-hidden">
+                                        <img class="img-fluid" src="img/${course.image}.jpg" alt="">
+                                    </div>
+                                    <div class="text-center p-4 pb-0">
+                                        <h5 class="mb-4">${course.title}</h5>
+                                    </div>
+                                    <div class="d-flex border-top">
+                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-user-tie text-primary me-2"></i>${course.professor}</small>
+                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-flask text-primary me-2"></i>${course.faculty}</small>
+                                        <small class="flex-fill text-center py-2"><i class="fa fa-vial text-primary me-2"></i>${course.department}</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        `;
+                    row.innerHTML += courseHTML;
+
+                    delay += 0.1;
+                });
+    
+                // Append the row to the container
+                container.appendChild(row);
+            },
+            function(error) {
+                console.error("Error fetching courses:", error);
+            }
+        );
+
+        function saveCourseDetails(id ,title, professor, department) {
+            const courseDetails = {
+                id: id,
+                title: title,
+                professor: professor,
+                department: department,
+            };
+            Utils.set_to_localstorage('course', courseDetails);
+        }
+    </script>

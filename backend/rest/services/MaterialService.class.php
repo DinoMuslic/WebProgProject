@@ -29,6 +29,18 @@ class MaterialService {
         return $this->material_dao->delete_material_by_id($id);
     }
 
+    public function delete_materials_by_course_id($course_id) {
+        return $this->material_dao->delete_materials_by_course_id($course_id);
+    }
+
+    public function get_material_by_course_id($course_id) {
+        return $this->material_dao->get_material_by_course_id($course_id);
+    }
+
+    public function get_all_materials_by_course_id($course_id) {
+        return $this->material_dao->get_all_materials_by_course_id($course_id);
+    }
+
     public function get_material_by_id($id) {
         return $this->material_dao->get_material_by_id($id);
     }
@@ -38,5 +50,9 @@ class MaterialService {
         unset($material['id']);
         
         $this->material_dao->edit_material($id, $material);
+    }
+
+    public function get_all_materials() {
+        return $this->material_dao->get_all_materials();
     }
 }

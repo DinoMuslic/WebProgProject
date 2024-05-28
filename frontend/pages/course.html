@@ -1,0 +1,282 @@
+  <div></div>
+  <br><br><br>
+  <body>
+    <div class="container">
+
+      <div class="d-flex justify-content-between">
+        <h1 id="course-title" class="text-primary"></h1>
+      <h3 id="course-professor" class="text-primary"></h3>
+      </div>
+
+      <br><br>
+
+      <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+              <!-- <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Announcements
+                  </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div class="accordion-body" id="announcements">
+                      <button id="editAnnouncements" class="btn btn-primary btn-sm mt-2" onclick="openAddLectureModal()">Edit Announcements</button>
+                  </div>
+              </div> -->
+          </div>
+          <div id="lectures"></div>
+      </div>
+
+      <br>
+
+      <button id="addLecture" class="btn btn-primary mt-3" onclick="openAddLectureModal()">Add Lecture</button>
+  </div>
+
+    <div class="modal fade" id="addLectureModal" tabindex="-1" aria-labelledby="addLectureModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addLectureModalLabel">Add New Lecture</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="lectureTitle" class="form-label">Lecture Title</label>
+                        <input type="text" class="form-control" id="lectureTitle">
+                    </div>
+                    <div class="mb-3">
+                        <label for="lectureContent" class="form-label">Lecture Content</label>
+                        <textarea class="form-control" id="lectureContent" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveLecture" onclick="addLecture()">Save Lecture</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <script>
+    if ((Utils.get_from_localstorage("user").first_name + " " + Utils.get_from_localstorage("user").last_name) !== Utils.get_from_localstorage("course").professor) {
+        $('#addLecture').hide();
+        $('#editAnnouncements').hide();
+        $('.editBtn').hide();
+        $('.deleteBtn').hide();
+    }
+
+    let lectures = [];
+
+    window.addEventListener('hashchange', function () {
+        window.location.reload();
+    });
+
+    $("#course-title").text(Utils.get_from_localstorage("course").title);
+    $("#course-professor").text(Utils.get_from_localstorage("course").professor);
+
+    RestClient.get(
+        `backend/materials/course/${Utils.get_from_localstorage("course").id}`,
+        function(response) {
+
+            response.sort((a, b) => a.title.localeCompare(b.title));
+            lectures = response;
+
+            console.log("Lectures:", lectures);
+
+            const lecturesDiv = document.getElementById('lectures');
+            lecturesDiv.innerHTML = '';
+
+            response.forEach((lecture, index) => {
+                $('#lectures').append(`
+                    <div class="accordion-item" id="lecture-${index}" data-lecture-id="${lecture.id}">
+                        <h2 class="accordion-header" id="heading${index}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
+                                ${lecture.title}
+                            </button>
+                        </h2>
+                        <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                ${lecture.contents}
+                                <div class="mt-2">
+                                    <button  class="btn btn-danger btn-sm deleteBtn" onclick="deleteLecture(${index})">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `);
+                if ((Utils.get_from_localstorage("user").first_name + " " + Utils.get_from_localstorage("user").last_name) !== Utils.get_from_localstorage("course").professor) {
+                    $('#addLecture').hide();
+                    $('#editAnnouncements').hide();
+                    $('.editBtn').hide();
+                    $('.deleteBtn').hide();
+                }
+            });
+        },
+        function(error) {
+            console.error("Error fetching lectures:", error);
+        }
+    );
+
+    function openAddLectureModal() {
+    $('#addLectureModal').modal('show');
+}
+
+    function addLecture() {
+        const title = $('#lectureTitle').val();
+        const content = $('#lectureContent').val();
+
+        // Validate if title and content are not empty
+        if (!title.trim() || !content.trim()) {
+            alert("Please enter both title and content.");
+            return;
+        }
+
+        // Prepare the data to be sent in the POST request
+        const newLectureData = {
+            id: "",
+            course_id: Utils.get_from_localstorage("course").id,
+            title: title,
+            contents: content,
+            announcements: ""
+        };
+
+        // Send a POST request to add the new lecture
+        RestClient.post(
+            'backend/materials/add',
+            newLectureData,
+            function(response) {
+                fetchAndDisplayLectures();
+                
+                // Close the modal after adding the lecture
+                $('#addLectureModal').modal('hide');
+
+                toastr.success("Added lecture sucessfully!");
+            },
+            function(jqXHR) {
+                toastr.success("An Error Occured");
+            }
+        );
+    }
+
+    function deleteLecture(lectureIndex) {
+        
+        if (confirm("Are you sure you want to delete this lecture?")) {
+            
+            const lectureId = ""; // Replace "" with the appropriate code to get the lecture ID
+
+            
+            RestClient.delete(
+                `backend/materials/delete/${lectureId}`, 
+                null,
+                function(response) {
+                    fetchAndDisplayLectures();
+                    toastr.success("Lecture deleted successfully!");
+                },
+                function(jqXHR) {
+                    toastr.error("Failed to delete lecture. Please try again.");
+                }
+            );
+        }
+    }
+
+    function fetchAndDisplayLectures() {
+    // Fetch the list of lectures from the backend
+    RestClient.get(
+        `backend/materials/course/${Utils.get_from_localstorage("course").id}`,
+        function(response) {
+            // Clear the existing lectures from the UI
+            $('#lectures').empty();
+
+            response.sort((a, b) => a.title.localeCompare(b.title));
+
+            lectures = response;
+            console.log("Lectures:", lectures);
+
+            // Iterate over each lecture in the response and append it to the UI
+            response.forEach((lecture, index) => {
+                $('#lectures').append(`
+                    <div class="accordion-item" id="lecture-${index}" data-lecture-id="${lecture.id}">
+                        <h2 class="accordion-header" id="heading${index}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
+                                ${lecture.title}
+                            </button>
+                        </h2>
+                        <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                ${lecture.contents}
+                                <div class="mt-2">
+                                    <button class="btn btn-primary btn-sm editBtn" onclick="openEditLectureModal(${index})">Edit</button>
+                                    <button class="btn btn-danger btn-sm deleteBtn" onclick="deleteLecture(${index})">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+        },
+        function(jqXHR) {
+                // If there was an error fetching lectures, log the error
+                console.error("Error fetching lectures:", jqXHR);
+                // Optionally, display an error message to the user
+                alert("Failed to fetch lectures. Please try again.");
+            }
+        );
+    }
+
+
+    function deleteLecture(lectureIndex) {
+        if (confirm("Are you sure you want to delete this lecture?")) {
+            // Retrieve the lecture ID from the corresponding HTML element
+            const lectureId = $(`#lecture-${lectureIndex}`).data('lecture-id');
+
+            // Send a DELETE request to delete the lecture by its ID
+            RestClient.delete(
+                `backend/materials/delete/${lectureId}`,
+                null,
+                function(response) {
+                    fetchAndDisplayLectures();
+                    toastr.success("Lecture deleted successfully!");
+                },
+                function(jqXHR) {
+                    toastr.error("Failed to delete lecture. Please try again.");
+                }
+            );
+        }
+    }
+
+    function openEditLectureModal(lectureIndex) {
+        const lecture = lectures[lectureIndex]; // Assuming you have an array of lectures
+
+        $('#addLectureModal').modal('show');
+        $('#addLectureModalTitle').val(lecture.title);
+        $('#addLectureModalContent').val(lecture.contents);
+
+        $('#saveEditedLecture').off('click').on('click', function() {
+            // Get the updated title and content from modal fields
+            const updatedTitle = $('#addLectureModalTitle').val();
+            const updatedContent = $('#addLectureModalContent').val();
+
+            // Update the lecture object with new values
+            lecture.title = updatedTitle;
+            lecture.contents = updatedContent;
+
+            // Call function to send updated lecture to backend
+            updateLecture(lecture);
+        });
+    }
+
+    function updateLecture(lecture) {
+        RestClient.put(
+            `backend/materials/update/${lecture.id}`,
+            lecture,
+            function(response) {
+                fetchAndDisplayLectures(); // Refresh the list of lectures after update
+                $('#addectureModal').modal('hide'); // Hide the modal after update
+                toastr.success("Lecture updated successfully!");
+            },
+            function(jqXHR) {
+                toastr.error("Failed to update lecture. Please try again.");
+            }
+        );
+    }
+
+  </script>

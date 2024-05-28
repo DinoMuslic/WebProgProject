@@ -1,0 +1,86 @@
+<style>
+    @media (max-width: 400px) {
+            .searchbar {
+                width: 500px !important;
+            }
+        }
+   </style>
+  
+  <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Our Staff</h1>
+                    <nav aria-label="breadcrumb">
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End --> 
+
+    <!-- Team Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3 mb-4">Staff</h6>
+            </div><br>
+            <div id="staff-container" class="row g-4">
+                
+            </div>
+        </div>
+    </div>
+    <!-- Team End -->
+    <script>
+        RestClient.get(
+            "backend/professors/all",
+            function(response) {
+                // Select the container where professors will be displayed
+                const container = document.querySelector('#staff-container');
+                container.innerHTML = ''; // Clear existing content
+    
+                // Create a row to contain professors
+                let row = document.createElement('div');
+                row.classList.add('row');
+    
+                shuffle(response);
+
+    
+                // Generate HTML for each professor and append to the row
+                let delay = 0.1;
+                response.forEach(professor => {
+                    const professorHTML = `
+                        <div class="col-lg-3 col-md-6 wow fadeInUp mb-5" data-wow-delay="${delay}s">
+                            <div class="team-item bg-light">
+                                <div class="overflow-hidden">
+                                    <img class="img-fluid" src="img/user1.png" alt="${professor.first_name}">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h5 class="mb-0">${professor.first_name + " " + professor.last_name}</h5>
+                                    <small>${professor.department}</small>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    row.innerHTML += professorHTML;
+
+                    delay += 0.2;
+                });
+    
+                // Append the row to the container
+                container.appendChild(row);
+            },
+            function(error) {
+                console.error("Error fetching professors:", error);
+            }
+        );
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    </script>
