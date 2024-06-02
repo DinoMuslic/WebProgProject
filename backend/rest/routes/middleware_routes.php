@@ -6,11 +6,12 @@ use Firebase\JWT\Key;
 Flight::route('/*', function() {
     if(
         strpos(Flight::request()->url, '/auth/login') === 0 || 
-        strpos(Flight::request()->url, '/auth/register') === 0
+        strpos(Flight::request()->url, '/auth/register') === 0 ||
+        strpos(Flight::request()->url, '/students/info') === 0 
         ) {
         return TRUE;
     } else {
-        throw new Exception("It works", 404);
+        //throw new Exception("It works", 404);
         try {
             $token = Flight::request()->getHeader("Authentication");
             if(!$token)
@@ -32,9 +33,9 @@ Flight::route('/*', function() {
     }
 });
 
-// Flight::map('error', function(Exception $e) {
-//     file_put_contents("logs.txt", $e . PHP_EOL, FILE_APPEND | LOCK_EX);
+Flight::map('error', function(Exception $e) {
+    file_put_contents("logs.txt", $e . PHP_EOL, FILE_APPEND | LOCK_EX);
 
-//     Flight::halt($e->getCode(), $e->getMessage());
-//     Flight::stop($e->getCode());
-// });
+    Flight::halt($e->getCode(), $e->getMessage());
+    Flight::stop($e->getCode());
+});

@@ -192,6 +192,26 @@ Flight::group('/professors', function () {
     
         Flight::json($professor, 200);
     });
+
+
+    /**
+     * @OA\Get(
+     *      path="/professors/info",
+     *      tags={"professors"},
+     *      summary="Get logged in professor information",
+     *      security={
+     *         {"ApiKey": {}}
+     *      },
+     *      @OA\Response(
+     *           response=200,
+     *           description="professor data or false if professor doesn't exist in the database"
+     *      )
+     * )
+     */
+
+     Flight::route('GET /info', function() {
+        Flight::json(Flight::get('user'), 200);
+    });
 });
 
 

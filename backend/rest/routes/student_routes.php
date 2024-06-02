@@ -122,7 +122,7 @@ Flight::group('/students', function () {
      *      @OA\RequestBody(
      *          description="student data payload",
      *          @OA\JsonContent(
-     *              required={"first_name","last_name", "email", "password},
+     *              required={"first_name","last_name", "email"},
      *              @OA\Property(property="id", type="string", example="1", description="student ID"),
      *              @OA\Property(property="first_name", type="string", example="Some student name", description="student name"),
      *              @OA\Property(property="last_name", type="string", example="Some student last name", description="student last name"),
